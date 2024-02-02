@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 50px;
+      font-size: 16px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0;
+    }
+
+    input {
+      margin: 5px;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    #result {
+      margin-top: 20px;
+      color: green;
+    }
+
+    #error {
+      margin-top: 20px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Registration Form</h1>
+
+  <form onsubmit="return validateForm()">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required pattern="[A-Za-z]{3,}" title="At least 3 alphabets, no numerics or special characters">
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$" 
+      title="Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number, and one special character">
+
+    <label for="phone">Phone Number:</label>
+    <input type="tel" id="phone" name="phone" required pattern="\d{10}" title="Must be numeric and 10 digits">
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" name="dob" required>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="result"></div>
+  <div id="error"></div>
+
+  <script>
+    function validateForm() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const phone = document.getElementById('phone').value;
+
+      const nameRegex = /^[A-Za-z]{3,}$/;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+      const phoneRegex = /^\d{10}$/;
+
+      if (!nameRegex.test(name)) {
+        displayError("Invalid name format. It should contain at least 3 alphabets and no numerics or special characters.");
+        return false;
+      }
+
+      if (!emailRegex.test(email)) {
+        displayError("Invalid email format. Please enter a valid email address.");
+        return false;
+      }
+
+      if (!passwordRegex.test(password)) {
+        displayError("Invalid password format. It should be at least 8 characters long, contain one uppercase letter, one lowercase letter, one number, and one special character.");
+        return false;
+      }
+
+      if (!phoneRegex.test(phone)) {
+        displayError("Invalid phone number format. It should be numeric and have 10 digits.");
+        return false;
+      }
+
+      // If all validations pass, display success message
+      displayResult("Form submitted successfully!");
+      return false; // Returning false to prevent the form from submitting (for demonstration purposes)
+    }
+
+    function displayResult(message) {
+      document.getElementById('result').innerHTML = message;
+      document.getElementById('error').innerHTML = "";
+    }
+
+    function displayError(message) {
+      document.getElementById('error').innerHTML = message;
+      document.getElementById('result').innerHTML = "";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Quiz</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 150px;
+      font-size: 50px;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const quizQuestions = [
+      {
+        question: 'How many branches are there for Gitam University?',
+        answer: '3'
+      },
+      {
+        question: 'NCC stands for?',
+        answer: 'National Cadet Corps'
+      },
+      {
+        question: 'What house does Harry belong to in Hogwarts?',
+        answer: 'Gryffindor'
+      }
+    ];
+
+    function startQuiz() {
+      for (let i = 0; i < quizQuestions.length; i++) {
+        const userAnswer = prompt(quizQuestions[i].question);
+        checkAnswer(userAnswer, quizQuestions[i].answer);
+      }
+      alert('Quiz completed!');
+    }
+
+    function checkAnswer(userAnswer, correctAnswer) {
+      if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        alert('Correct!');
+      } else {
+        alert(`Incorrect! The correct answer is: ${correctAnswer}`);
+      }
+    }
+
+    startQuiz();
+  </script>
+</body>
+</html>
